@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3:2:1 — The Countdown Starts Here</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark: #111111;
+    --charcoal: #1a1a1a;
+    --slate: #2a2a2a;
+    --mid: #555;
+    --light: #bbb;
+    --white: #f0f0f0;
+    --accent: #ff4d1c;
+    --accent-glow: #ff6b3d;
+    --france: #002395;
+    --italy: #008C45;
+    --swiss: #D52B1E;
+    --gradient-accent: linear-gradient(135deg, #ff4d1c, #ff8a00);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* === TRI-STRIPE (France/Italy/Switzerland) === */
+  .tri-stripe {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    z-index: 1000;
+    display: flex;
+  }
+  .tri-stripe span {
+    flex: 1;
+    display: block;
+  }
+  .tri-stripe span:nth-child(1) { background: var(--france); }
+  .tri-stripe span:nth-child(2) { background: var(--white); }
+  .tri-stripe span:nth-child(3) { background: var(--swiss); }
+  .tri-stripe span:nth-child(4) { background: var(--italy); }
+
+  /* === NAV === */
+  nav {
+    position: fixed;
+    top: 3px;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s ease;
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--light);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    background: var(--accent) !important;
+    color: var(--black) !important;
+    padding: 0.6rem 1.4rem;
+    border-radius: 2px;
+    font-weight: 700 !important;
+    transition: all 0.3s !important;
+  }
+  .nav-cta:hover {
+    background: var(--accent-glow) !important;
+    transform: translateY(-1px);
+  }
+
+  /* === HERO === */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.1) 40%, rgba(10,10,10,0.7) 75%, rgba(10,10,10,1) 100%),
+      url('https://images.unsplash.com/photo-1520769669658-f07657f5a307?w=1920&q=80') center/cover no-repeat;
+    filter: saturate(0.7);
+    animation: slowZoom 30s ease-in-out infinite alternate;
+  }
+  @keyframes slowZoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.08); }
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    padding: 0 2rem;
+  }
+  .hero-edition {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(6rem, 15vw, 14rem);
+    line-height: 0.85;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.3em;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s forwards;
+  }
+  .hero-title span {
+    color: var(--accent);
+    text-shadow: 0 0 60px rgba(255,77,28,0.4);
+  }
+  .hero-subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 300;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--light);
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.7s forwards;
+  }
+  .hero-date {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s forwards;
+  }
+  .hero-cta-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 1s 1.1s forwards;
+  }
+  .btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--black);
+  }
+  .btn-primary:hover {
+    background: var(--accent-glow);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255,77,28,0.3);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  .btn-outline:hover {
+    border-color: var(--white);
+    background: rgba(255,255,255,0.05);
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    opacity: 0;
+    animation: fadeUp 1s 1.5s forwards;
+  }
+  .scroll-indicator .line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    margin: 0 auto;
+    animation: scrollPulse 2s infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* === COUNTDOWN === */
+  .countdown-section {
+    padding: 4rem 2rem;
+    background: var(--dark);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .countdown-grid {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .countdown-unit {
+    text-align: center;
+  }
+  .countdown-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 5rem);
+    color: var(--accent);
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(255,77,28,0.2);
+  }
+  .countdown-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-top: 0.5rem;
+  }
+  .countdown-sep {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 5rem);
+    color: var(--slate);
+    line-height: 1;
+    align-self: flex-start;
+  }
+
+  /* === SECTION STYLING === */
+  section { padding: 8rem 2rem; }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1;
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* === CHALLENGE SECTION === */
+  .challenge { background: var(--black); }
+  .challenge-intro {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--light);
+    max-width: 700px;
+    margin-bottom: 4rem;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+  }
+  .stat:last-child { border-right: none; }
+  .stat:hover {
+    background: rgba(255,77,28,0.03);
+  }
+  .stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .stat-unit {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+    color: var(--mid);
+    letter-spacing: 0.1em;
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-top: 1rem;
+  }
+
+  /* === ROUTE MAP SECTION === */
+  .route {
+    background: var(--dark);
+    position: relative;
+  }
+  .route-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .route-text { }
+  .route-text p {
+    font-weight: 300;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--light);
+    margin-bottom: 1.5rem;
+  }
+  .route-days {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2.5rem;
+  }
+  .day-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+  }
+  .day-card:hover {
+    border-color: rgba(255,77,28,0.2);
+    background: rgba(255,77,28,0.02);
+  }
+  .day-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+  }
+  .day-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .day-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+  .day-desc {
+    font-weight: 300;
+    font-size: 0.9rem;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+  .day-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .day-stat {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    color: var(--mid);
+    letter-spacing: 0.1em;
+  }
+  .day-stat strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  /* Route visual */
+  .route-visual {
+    position: relative;
+  }
+  .route-map-placeholder {
+    aspect-ratio: 1;
+    background: var(--charcoal);
+    border: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .route-map-svg {
+    width: 90%;
+    height: 90%;
+  }
+  .country-badges {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+  }
+  .country-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.2rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .country-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .country-badge span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--light);
+  }
+
+  /* === CAUSE SECTION === */
+  .cause {
+    background: var(--black);
+    position: relative;
+  }
+  .cause::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+  .cause-content {
+    max-width: 750px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .cause-quote {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    line-height: 1.7;
+    color: var(--white);
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  .cause-quote::before {
+    content: '"';
+    font-family: 'Bebas Neue', sans-serif;
+    font-style: normal;
+    font-size: 6rem;
+    color: var(--accent);
+    position: absolute;
+    top: -2rem;
+    left: -1rem;
+    opacity: 0.3;
+    line-height: 1;
+  }
+  .cause-body {
+    font-weight: 300;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--light);
+    margin-bottom: 2rem;
+  }
+  .cause-highlight {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255,77,28,0.08);
+    border: 1px solid rgba(255,77,28,0.15);
+    padding: 1rem 2rem;
+    margin-top: 1.5rem;
+  }
+  .cause-highlight-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* === COLS SECTION === */
+  .cols-section {
+    background: var(--dark);
+    padding: 6rem 2rem;
+  }
+  .cols-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 3rem;
+  }
+  .col-card {
+    background: var(--charcoal);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s;
+    cursor: default;
+  }
+  .col-card:hover {
+    background: rgba(255,77,28,0.04);
+  }
+  .col-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--gradient-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s;
+  }
+  .col-card:hover::after {
+    transform: scaleX(1);
+  }
+  .col-elevation {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .col-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+  .col-country {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  /* === CTA SECTION === */
+  .cta-section {
+    background: var(--black);
+    padding: 8rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,77,28,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-content {
+    position: relative;
+    z-index: 2;
+  }
+  .cta-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.02em;
+  }
+  .cta-title span { color: var(--accent); }
+  .cta-subtitle {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 1.15rem;
+    color: var(--light);
+    max-width: 550px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .cta-buttons .btn { min-width: 200px; }
+
+  /* === FOOTER === */
+  footer {
+    padding: 4rem 2rem 2rem;
+    background: var(--dark);
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+  }
+  .footer-brand span { color: var(--accent); }
+  .footer-tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-top: 0.5rem;
+  }
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+  }
+  .footer-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 400;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 3rem auto 0;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--mid);
+    letter-spacing: 0.05em;
+  }
+  .footer-social {
+    display: flex;
+    gap: 1.5rem;
+  }
+  .footer-social a {
+    color: var(--mid);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    transition: color 0.3s;
+  }
+  .footer-social a:hover { color: var(--accent); }
+
+  /* === MOUNTAIN PROFILE SVG === */
+  .mountain-divider {
+    width: 100%;
+    height: 120px;
+    overflow: hidden;
+    background: var(--dark);
+  }
+  .mountain-divider svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* === SCROLL ANIMATIONS === */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat { border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .route-content { grid-template-columns: 1fr; }
+    .cols-grid { grid-template-columns: 1fr; }
+    .countdown-grid { gap: 1.5rem; }
+    .country-badges { flex-direction: column; align-items: center; }
+  }
+
+  @media (max-width: 600px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .hero-title { font-size: 5rem; }
+    .countdown-grid { gap: 1rem; }
+    .countdown-sep { display: none; }
+  }
+
+  /* === GRAIN OVERLAY === */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    mix-blend-mode: overlay;
+  }
+</style>
+</head>
+<body>
+
+<!-- Tri-stripe (France, White, Switzerland/Red, Italy/Green) -->
+<div class="tri-stripe">
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<!-- Nav -->
+<nav>
+  <a href="#" class="nav-logo">3<span>:</span>2<span>:</span>1</a>
+  <div class="nav-links">
+    <a href="#challenge">The Challenge</a>
+    <a href="#route">The Route</a>
+    <a href="#cause">The Cause</a>
+    <a href="#donate" class="nav-cta">Donate</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-edition">Edition 001 — Inaugural Ride</div>
+    <h1 class="hero-title">3<span>:</span>2<span>:</span>1</h1>
+    <p class="hero-subtitle">Three countries · Two days · One mountain</p>
+    <div class="hero-date">27 — 28 June 2025 · Mont Blanc</div>
+    <div class="hero-cta-group">
+      <a href="#donate" class="btn btn-primary">Sponsor a rider</a>
+      <a href="#challenge" class="btn btn-outline">Discover the challenge</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- Countdown -->
+<div class="countdown-section">
+  <div class="countdown-grid">
+    <div class="countdown-unit">
+      <div class="countdown-number" id="cd-days">---</div>
+      <div class="countdown-label">Days</div>
+    </div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-unit">
+      <div class="countdown-number" id="cd-hours">--</div>
+      <div class="countdown-label">Hours</div>
+    </div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-unit">
+      <div class="countdown-number" id="cd-mins">--</div>
+      <div class="countdown-label">Minutes</div>
+    </div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-unit">
+      <div class="countdown-number" id="cd-secs">--</div>
+      <div class="countdown-label">Seconds</div>
+    </div>
+  </div>
+</div>
+
+<!-- Challenge -->
+<section class="challenge" id="challenge">
+  <div class="container reveal">
+    <div class="section-label">The Challenge</div>
+    <h2 class="section-title">The hardest problems<br>demand the hardest effort</h2>
+    <p class="challenge-intro">
+      A two-day road cycling circumnavigation of Mont Blanc — Western Europe's highest peak — crossing through France, Italy and Switzerland. Over 320 kilometres and approximately 8,000 metres of climbing through some of the most dramatic alpine scenery on earth. This isn't a sportive. It's a mission.
+    </p>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-number">320</div>
+        <div class="stat-unit">km</div>
+        <div class="stat-label">Total Distance</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">8,000</div>
+        <div class="stat-unit">m</div>
+        <div class="stat-label">Elevation Gain</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">3</div>
+        <div class="stat-unit">nations</div>
+        <div class="stat-label">France · Italy · Switzerland</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">2</div>
+        <div class="stat-unit">days</div>
+        <div class="stat-label">Of Pure Suffering</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mountain divider -->
+<div class="mountain-divider">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+    <path d="M0,120 L0,80 L120,60 L240,75 L360,40 L480,55 L540,20 L600,45 L660,15 L720,5 L780,18 L840,35 L900,25 L960,50 L1080,30 L1200,55 L1320,45 L1440,70 L1440,120 Z" fill="#0a0a0a" opacity="0.5"/>
+    <path d="M0,120 L0,90 L180,70 L300,85 L420,50 L540,65 L630,30 L720,10 L810,28 L900,55 L1020,40 L1140,65 L1260,50 L1380,75 L1440,80 L1440,120 Z" fill="#0a0a0a"/>
+  </svg>
+</div>
+
+<!-- Route -->
+<section class="route" id="route">
+  <div class="container">
+    <div class="route-content">
+      <div class="route-text reveal">
+        <div class="section-label">The Route</div>
+        <h2 class="section-title">Around the monarch<br>of the Alps</h2>
+        <p>
+          Starting and finishing in Chamonix, the route loops around the entire Mont Blanc massif on some of the most legendary cycling roads in Europe — cols that have forged legends in the Tour de France, the Giro d'Italia and beyond.
+        </p>
+        <p>
+          Every pedal stroke takes you deeper into the heart of the Alps: soaring switchbacks, glacial valleys, alpine meadows, and three distinct cultures — each with their own food, language, and way of life.
+        </p>
+        <div class="route-days">
+          <div class="day-card">
+            <div class="day-number">Day 01</div>
+            <div class="day-title">Chamonix → Courmayeur → Aosta</div>
+            <div class="day-desc">From France into the Italian Alps. Cross the high passes, descend into the Val d'Aosta, and feel the temperature — and the espresso — change.</div>
+            <div class="day-stats">
+              <div class="day-stat"><strong>~160km</strong> Distance</div>
+              <div class="day-stat"><strong>~4,000m</strong> Climbing</div>
+            </div>
+          </div>
+          <div class="day-card">
+            <div class="day-number">Day 02</div>
+            <div class="day-title">Aosta → Martigny → Chamonix</div>
+            <div class="day-desc">Through the Great St. Bernard Pass into Switzerland, along the Rhône Valley, and back over into France. The final kilometres into Chamonix will stay with you forever.</div>
+            <div class="day-stats">
+              <div class="day-stat"><strong>~160km</strong> Distance</div>
+              <div class="day-stat"><strong>~4,000m</strong> Climbing</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="route-visual reveal">
+        <div class="route-map-placeholder">
+          <svg class="route-map-svg" viewBox="0 0 400 400" fill="none">
+            <!-- Simplified Mont Blanc route loop -->
+            <circle cx="200" cy="200" r="130" stroke="rgba(255,255,255,0.06)" stroke-width="1" fill="none"/>
+            <!-- Route path -->
+            <path d="M200,70 C280,75 330,120 340,200 C350,280 300,340 220,345 C140,350 70,300 65,220 C60,140 120,70 200,70" 
+              stroke="url(#routeGrad)" stroke-width="2.5" fill="none" stroke-linecap="round"
+              stroke-dasharray="8 4"/>
+            <!-- Mont Blanc center -->
+            <polygon points="200,155 215,195 240,195 220,215 228,250 200,232 172,250 180,215 160,195 185,195" 
+              fill="rgba(255,77,28,0.15)" stroke="var(--accent)" stroke-width="1"/>
+            <text x="200" y="280" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="14" fill="rgba(255,255,255,0.4)" letter-spacing="4">MONT BLANC</text>
+            <text x="200" y="296" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-size="9" fill="rgba(255,255,255,0.2)" letter-spacing="2">4,808M</text>
+            <!-- Country labels -->
+            <text x="170" y="95" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-size="10" fill="#002395" letter-spacing="3" font-weight="600">FRANCE</text>
+            <text x="330" y="230" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-size="10" fill="#008C45" letter-spacing="3" font-weight="600">ITALY</text>
+            <text x="90" y="310" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-size="10" fill="#D52B1E" letter-spacing="3" font-weight="600">SWITZERLAND</text>
+            <!-- City dots -->
+            <circle cx="200" cy="72" r="5" fill="var(--accent)"/>
+            <text x="200" y="60" text-anchor="middle" font-family="Barlow, sans-serif" font-size="9" fill="var(--white)" font-weight="500">Chamonix</text>
+            <circle cx="338" cy="205" r="4" fill="rgba(255,255,255,0.4)"/>
+            <text x="338" y="195" text-anchor="middle" font-family="Barlow, sans-serif" font-size="8" fill="rgba(255,255,255,0.5)">Courmayeur</text>
+            <circle cx="68" cy="225" r="4" fill="rgba(255,255,255,0.4)"/>
+            <text x="68" y="215" text-anchor="middle" font-family="Barlow, sans-serif" font-size="8" fill="rgba(255,255,255,0.5)">Martigny</text>
+            <!-- Gradient -->
+            <defs>
+              <linearGradient id="routeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ff4d1c"/>
+                <stop offset="50%" stop-color="#ff8a00"/>
+                <stop offset="100%" stop-color="#ff4d1c"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="country-badges">
+          <div class="country-badge">
+            <div class="country-dot" style="background: var(--france);"></div>
+            <span>France</span>
+          </div>
+          <div class="country-badge">
+            <div class="country-dot" style="background: var(--italy);"></div>
+            <span>Italy</span>
+          </div>
+          <div class="country-badge">
+            <div class="country-dot" style="background: var(--swiss);"></div>
+            <span>Switzerland</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cols -->
+<section class="cols-section">
+  <div class="container reveal">
+    <div class="section-label">The Climbs</div>
+    <h2 class="section-title">Cols that made legends</h2>
+    <div class="cols-grid">
+      <div class="col-card">
+        <div class="col-elevation">2,469m</div>
+        <div class="col-name">Col du Grand St. Bernard</div>
+        <div class="col-country">Italy — Switzerland</div>
+      </div>
+      <div class="col-card">
+        <div class="col-elevation">2,188m</div>
+        <div class="col-name">Col du Petit St. Bernard</div>
+        <div class="col-country">Italy — France</div>
+      </div>
+      <div class="col-card">
+        <div class="col-elevation">1,526m</div>
+        <div class="col-name">Col des Montets</div>
+        <div class="col-country">France</div>
+      </div>
+      <div class="col-card">
+        <div class="col-elevation">1,527m</div>
+        <div class="col-name">Col de la Forclaz</div>
+        <div class="col-country">Switzerland</div>
+      </div>
+      <div class="col-card">
+        <div class="col-elevation">2,188m</div>
+        <div class="col-name">Cormet de Roselend</div>
+        <div class="col-country">France</div>
+      </div>
+      <div class="col-card">
+        <div class="col-elevation">1,650m</div>
+        <div class="col-name">Col de Saisies</div>
+        <div class="col-country">France</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cause -->
+<section class="cause" id="cause">
+  <div class="cause-content reveal">
+    <div class="section-label">The Cause</div>
+    <h2 class="section-title">Riding to outsmart cancer</h2>
+    <div class="cause-quote">
+      AI is transforming how we detect, diagnose and treat cancer. Every kilometre we ride funds the technology and training that will save lives.
+    </div>
+    <p class="cause-body">
+      All funds raised go directly to The London Clinic Academy's AI Fund — supporting the development and adoption of artificial intelligence in cancer care. From early detection algorithms to treatment planning tools, AI is accelerating breakthroughs that give patients better outcomes, faster.
+    </p>
+    <p class="cause-body">
+      The hardest climbs on the road mirror the hardest fights in the clinic. This ride connects human endurance with human ingenuity — because beating cancer takes both.
+    </p>
+    <div class="cause-highlight">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff4d1c" stroke-width="2" stroke-linecap="round">
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+      </svg>
+      <span class="cause-highlight-text">The London Clinic Academy · AI in Cancer Care</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="donate">
+  <div class="cta-content reveal">
+    <h2 class="cta-title">The countdown<br><span>starts here</span></h2>
+    <p class="cta-subtitle">
+      Whether you ride, sponsor, or donate — you're part of something that goes far beyond the road. Join the 3:2:1 mission.
+    </p>
+    <div class="cta-buttons">
+      <a href="#" class="btn btn-primary">Donate now</a>
+      <a href="#" class="btn btn-outline">Sponsor a rider</a>
+      <a href="#" class="btn btn-outline">Follow the ride</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <div>
+      <div class="footer-brand">3<span>:</span>2<span>:</span>1</div>
+      <div class="footer-tagline">The countdown starts here</div>
+    </div>
+    <div class="footer-links">
+      <a href="#challenge">The Challenge</a>
+      <a href="#route">The Route</a>
+      <a href="#cause">The Cause</a>
+      <a href="#donate">Donate</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 3:2:1 Cycling Challenge. All funds to The London Clinic Academy AI Fund.</div>
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">Strava</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // === COUNTDOWN ===
+  function updateCountdown() {
+    const target = new Date('2025-06-27T06:00:00+02:00'); // 6am CEST start
+    const now = new Date();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent = '00';
+      document.getElementById('cd-hours').textContent = '00';
+      document.getElementById('cd-mins').textContent = '00';
+      document.getElementById('cd-secs').textContent = '00';
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById('cd-days').textContent = String(days).padStart(3, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+    document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // === SCROLL REVEAL ===
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
