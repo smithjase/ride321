@@ -77,13 +77,12 @@
     transition: all 0.3s ease;
   }
   .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem;
-    letter-spacing: 0.15em;
-    color: var(--white);
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    height: 36px;
   }
-  .nav-logo span { color: var(--accent); }
+  .nav-logo svg { height: 36px; width: auto; }
   .nav-links { display: flex; gap: 2rem; align-items: center; }
   .nav-links a {
     font-family: 'Barlow Condensed', sans-serif;
@@ -742,11 +741,9 @@
     flex-wrap: wrap;
   }
   .footer-brand {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    letter-spacing: 0.1em;
+    height: 40px;
   }
-  .footer-brand span { color: var(--accent); }
+  .footer-brand svg { height: 40px; width: auto; }
   .footer-tagline {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 300;
@@ -866,7 +863,12 @@
 
 <!-- Nav -->
 <nav>
-  <a href="#" class="nav-logo">3<span>:</span>2<span>:</span>1</a>
+  <a href="#" class="nav-logo">
+    <svg viewBox="0 0 320 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="160" y="65" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="62" fill="#f0f0f0" letter-spacing="6">3<tspan fill="#ff4d1c">:</tspan>2<tspan fill="#ff4d1c">:</tspan>1</text>
+      <path d="M40,88 L60,84 L80,78 L100,70 L118,62 L132,56 L144,52 L154,49 L160,47 L164,46 L167,45 L170,46 L173,48 L178,52 L184,56 L188,54 L192,52 L196,54 L200,57 L204,55 L208,52 L212,54 L218,60 L226,68 L236,76 L248,83 L264,87 L280,88" stroke="#ff4d1c" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>
+  </a>
   <div class="nav-links">
     <a href="#challenge">The Challenge</a>
     <a href="#route">The Route</a>
@@ -1140,7 +1142,12 @@
 <footer>
   <div class="footer-content">
     <div>
-      <div class="footer-brand">3<span>:</span>2<span>:</span>1</div>
+      <div class="footer-brand">
+        <svg viewBox="0 0 320 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="160" y="65" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="62" fill="#f0f0f0" letter-spacing="6">3<tspan fill="#ff4d1c">:</tspan>2<tspan fill="#ff4d1c">:</tspan>1</text>
+          <path d="M40,88 L60,84 L80,78 L100,70 L118,62 L132,56 L144,52 L154,49 L160,47 L164,46 L167,45 L170,46 L173,48 L178,52 L184,56 L188,54 L192,52 L196,54 L200,57 L204,55 L208,52 L212,54 L218,60 L226,68 L236,76 L248,83 L264,87 L280,88" stroke="#ff4d1c" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
       <div class="footer-tagline">The countdown starts here</div>
     </div>
     <div class="footer-links">
