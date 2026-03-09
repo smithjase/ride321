@@ -534,7 +534,7 @@
     background: linear-gradient(to bottom, var(--accent), transparent);
   }
   .cause-content {
-    max-width: 750px;
+    max-width: 800px;
     margin: 0 auto;
     text-align: center;
   }
@@ -725,6 +725,55 @@
   }
   .cta-buttons .btn { min-width: 200px; }
 
+  /* === RIDE WITH US === */
+  .ride-with-us {
+    background: var(--dark);
+    padding: 6rem 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .ride-content {
+    max-width: 650px;
+  }
+  .ride-text {
+    font-weight: 300;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--light);
+    margin-bottom: 2.5rem;
+  }
+  .ride-contact {
+    background: rgba(255,77,28,0.04);
+    border: 1px solid rgba(255,77,28,0.12);
+    padding: 2rem;
+  }
+  .ride-contact-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+  .ride-contact-link {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.3s;
+  }
+  .ride-contact-link:hover { color: var(--accent); }
+  .ride-contact-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 0.85rem;
+    color: var(--mid);
+    margin-top: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
   /* === FOOTER === */
   footer {
     padding: 4rem 2rem 2rem;
@@ -873,7 +922,8 @@
     <a href="#challenge">The Challenge</a>
     <a href="#route">The Route</a>
     <a href="#cause">The Cause</a>
-    <a href="#donate" class="nav-cta">Donate</a>
+    <a href="#ride">Ride With Us</a>
+    <a href="https://www.thelondonclinic.co.uk/321-cycle-challenge" target="_blank" class="nav-cta">Donate</a>
   </div>
   <button class="nav-toggle" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'">
     <span></span><span></span><span></span>
@@ -890,7 +940,7 @@
     <p class="hero-subtitle">Three countries · Two days · One mountain</p>
     <div class="hero-date">27 — 28 June 2026 · Mont Blanc</div>
     <div class="hero-cta-group">
-      <a href="#donate" class="btn btn-primary">Sponsor a rider</a>
+      <a href="https://www.thelondonclinic.co.uk/321-cycle-challenge" target="_blank" class="btn btn-primary">Sponsor a rider</a>
       <a href="#challenge" class="btn btn-outline">Discover the challenge</a>
     </div>
   </div>
@@ -1106,19 +1156,24 @@
     <div class="section-label">The Cause</div>
     <h2 class="section-title">Riding to outsmart cancer</h2>
     <div class="cause-quote">
-      AI is transforming how we detect, diagnose and treat cancer. Every kilometre we ride funds the technology and training that will save lives.
+      Every kilometre we ride funds compassionate cancer care at one of the UK's most pioneering hospitals. This is where human endurance meets human kindness.
     </div>
     <p class="cause-body">
-      All funds raised go directly to The London Clinic Academy's AI Fund — supporting the development and adoption of artificial intelligence in cancer care. From early detection algorithms to treatment planning tools, AI is accelerating breakthroughs that give patients better outcomes, faster.
+      Founded in 1932 and granted charitable status in 1935, The London Clinic is the UK's largest independent charitable hospital. With no shareholders, every penny of surplus is reinvested into advancing healthcare. From pioneering the world's first independent plastic surgery unit to leading the way in robotic surgery and AI-assisted treatments, The London Clinic has spent over 90 years combining medical innovation with an unwavering commitment to exceptional patient care.
     </p>
     <p class="cause-body">
-      The hardest climbs on the road mirror the hardest fights in the clinic. This ride connects human endurance with human ingenuity — because beating cancer takes both.
+      In oncology, The London Clinic is a recognised leader. Its award-winning Duchess of Devonshire Wing is one of the most modern and technologically advanced cancer centres in the UK, and in collaboration with Northwestern Medicine, the clinic equips its teams with cutting-edge medical technology. It was the first private hospital in the UK to offer 3T MRI scanning, the first to gain JACIE accreditation for stem cell work, and continues to pioneer new treatment approaches — from robotic telesurgery to novel non-invasive therapies for skin cancers.
+    </p>
+    <p class="cause-body" style="margin-top: 1rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06);">
+      <strong style="color: var(--white); font-weight: 600;">Edition 001 — The Quiet Room Project</strong><br><br>
+      This year's ride funds the refurbishment of the Level 1 Oncology quiet room — a dedicated space on an 18-bed inpatient ward where families receive difficult diagnoses, review treatment plans, and navigate some of the most significant conversations of their lives. The current room is functional, but it doesn't reflect the standard of care The London Clinic strives to deliver in these crucial moments.<br><br>
+      With your support, the space will be transformed into a calm, private environment with nature-inspired design, comfortable seating, dimmable lighting, and therapeutic elements to help reduce anxiety — creating a room that actively supports the emotional wellbeing of patients, families, and the clinical staff who care for them.
     </p>
     <div class="cause-highlight">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff4d1c" stroke-width="2" stroke-linecap="round">
         <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
       </svg>
-      <span class="cause-highlight-text">The London Clinic Academy · AI in Cancer Care</span>
+      <span class="cause-highlight-text">The London Clinic · Oncology Quiet Room Refurbishment</span>
     </div>
   </div>
 </section>
@@ -1131,9 +1186,26 @@
       Whether you ride, sponsor, or donate — you're part of something that goes far beyond the road. Join the 3:2:1 mission.
     </p>
     <div class="cta-buttons">
-      <a href="#" class="btn btn-primary">Donate now</a>
-      <a href="#" class="btn btn-outline">Sponsor a rider</a>
-      <a href="#" class="btn btn-outline">Follow the ride</a>
+      <a href="https://www.thelondonclinic.co.uk/321-cycle-challenge" target="_blank" class="btn btn-primary">Donate now</a>
+      <a href="https://www.thelondonclinic.co.uk/321-cycle-challenge" target="_blank" class="btn btn-outline">Sponsor a rider</a>
+    </div>
+  </div>
+</section>
+
+<!-- Ride With Us -->
+<section class="ride-with-us" id="ride">
+  <div class="container reveal">
+    <div class="ride-content">
+      <div class="section-label">Ride With Us</div>
+      <h2 class="section-title">Want to join<br><span style="color: var(--accent);">the countdown?</span></h2>
+      <p class="ride-text">
+        We're looking for strong riders who want to take on one of the toughest two-day cycling challenges in the Alps — and raise money for an extraordinary cause. If you've got the legs and the heart, we'd love to hear from you.
+      </p>
+      <div class="ride-contact">
+        <div class="ride-contact-label">Get in touch</div>
+        <a href="mailto:smithjase70@gmail.com" class="ride-contact-link">smithjase70@gmail.com</a>
+        <div class="ride-contact-name">Jason Smith · Ride Organiser</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1154,11 +1226,12 @@
       <a href="#challenge">The Challenge</a>
       <a href="#route">The Route</a>
       <a href="#cause">The Cause</a>
-      <a href="#donate">Donate</a>
+      <a href="#ride">Ride With Us</a>
+      <a href="https://www.thelondonclinic.co.uk/321-cycle-challenge" target="_blank">Donate</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">© 2025 3:2:1 Cycling Challenge. All funds to The London Clinic Academy AI Fund.</div>
+    <div class="footer-copy">© 2026 3:2:1 Cycling Challenge. All funds to The London Clinic Academy AI Fund.</div>
     <div class="footer-social">
       <a href="#">Instagram</a>
       <a href="#">Strava</a>
@@ -1169,7 +1242,7 @@
 <script>
   // === COUNTDOWN ===
   function updateCountdown() {
-    const target = new Date('2025-06-27T06:00:00+02:00'); // 6am CEST start
+    const target = new Date('2026-06-27T06:00:00+02:00'); // 6am CEST start
     const now = new Date();
     const diff = target - now;
 
